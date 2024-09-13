@@ -105,6 +105,3 @@ ENV/
 
 # Datasets
 datasets/
-
-# Output
-output/
