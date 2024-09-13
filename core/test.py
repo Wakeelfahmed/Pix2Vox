@@ -187,6 +187,9 @@ def test_net(cfg,
         for ti in test_iou[taxonomy_id]['iou']:
             print('%.4f' % ti, end='\t')
         print()
+
+    mean_iou = np.array(mean_iou)  # Ensure it's an array, even if there's a single value
+
     # Print mean IoU for each threshold
     print('Overall ', end='\t\t\t\t')
     for mi in mean_iou:
