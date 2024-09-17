@@ -51,6 +51,8 @@ def test_net(cfg,
             utils.data_transforms.Normalize(mean=cfg.DATASET.MEAN, std=cfg.DATASET.STD),
             utils.data_transforms.ToTensor(),
         ])
+        test_dataset_path = cfg.DATASETS[cfg.DATASET.TEST_DATASET.upper()].DATASET_PATH
+        print(f"Test dataset path: {test_dataset_path}")
 
         dataset_loader = utils.data_loaders.DATASET_LOADER_MAPPING[cfg.DATASET.TEST_DATASET](cfg)
         test_data_loader = torch.utils.data.DataLoader(dataset=dataset_loader.get_dataset(
@@ -165,6 +167,9 @@ def test_net(cfg,
     for taxonomy_id in test_iou:
         test_iou[taxonomy_id]['iou'] = np.mean(test_iou[taxonomy_id]['iou'], axis=0)
         mean_iou.append(test_iou[taxonomy_id]['iou'] * test_iou[taxonomy_id]['n_samples'])
+
+    if n_samples == 0:
+        print("Warning: No samples found for testing.")
     mean_iou = np.sum(mean_iou, axis=0) / n_samples
 
     # Ensure mean_iou is iterable, even if it's a scalar
