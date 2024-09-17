@@ -167,6 +167,10 @@ def test_net(cfg,
         mean_iou.append(test_iou[taxonomy_id]['iou'] * test_iou[taxonomy_id]['n_samples'])
     mean_iou = np.sum(mean_iou, axis=0) / n_samples
 
+    # Ensure mean_iou is iterable, even if it's a scalar
+    if isinstance(mean_iou, np.float64) or np.isscalar(mean_iou):
+        mean_iou = [mean_iou]
+
     # Print header
     print('============================ TEST RESULTS ============================')
     print('Taxonomy', end='\t')
