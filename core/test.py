@@ -51,8 +51,6 @@ def test_net(cfg,
             utils.data_transforms.Normalize(mean=cfg.DATASET.MEAN, std=cfg.DATASET.STD),
             utils.data_transforms.ToTensor(),
         ])
-        test_dataset_path = cfg.DATASETS[cfg.DATASET.TEST_DATASET.upper()].DATASET_PATH
-        print(f"Test dataset path: {test_dataset_path}")
 
         dataset_loader = utils.data_loaders.DATASET_LOADER_MAPPING[cfg.DATASET.TEST_DATASET](cfg)
         test_data_loader = torch.utils.data.DataLoader(dataset=dataset_loader.get_dataset(
